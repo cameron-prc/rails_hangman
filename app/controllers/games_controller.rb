@@ -24,9 +24,9 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        redirect_to @game, notice: 'Game was successfully created.'
+        format.html { redirect_to @game, notice: 'Game was successfully created.' }
       else
-        render :new
+        format.html { render :new }
       end
     end
   end

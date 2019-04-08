@@ -28,18 +28,7 @@ RSpec.describe GamesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Game. As you add validations to Game, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    {
-      target_word: "testWord",
-      lives: 5
-    }
-  }
-
-  let(:invalid_attributes) {
-    {
-      lives: -1
-    }
-  }
+  let(:valid_attributes) { { target_word: "testWord", lives: 5 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -57,7 +46,7 @@ RSpec.describe GamesController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       game = Game.create! valid_attributes
-      get :show, params: {id: game.to_param}, session: valid_session
+      get :show, params: { id: game.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -84,6 +73,8 @@ RSpec.describe GamesController, type: :controller do
     end
 
     context "with invalid params" do
+      let(:invalid_attributes) { { lives: -1 } }
+      
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {game: invalid_attributes}, session: valid_session
         expect(response).to be_successful

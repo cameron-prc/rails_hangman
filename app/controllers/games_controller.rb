@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show]
 
   # GET /games
   # GET /games.json
@@ -24,11 +24,9 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
+        redirect_to @game, notice: 'Game was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        render :new
       end
     end
   end

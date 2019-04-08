@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @guess.game %>
+</p>
+
+<p>
+  <strong>Letter:</strong>
+  <%= @guess.letter %>
+</p>
+
+<%= link_to 'Edit', edit_guess_path(@guess) %> |
+<%= link_to 'Back', guesses_path %>

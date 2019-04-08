@@ -16,9 +16,7 @@
       <tr>
         <td><%= guess.game %></td>
         <td><%= guess.letter %></td>
-        <td><%= link_to 'Show', guess %></td>
-        <td><%= link_to 'Edit', edit_guess_path(guess) %></td>
-        <td><%= link_to 'Destroy', guess, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', game_guess_path(@game, guess) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Guess', new_guess_path %>
+<%= link_to 'New Guess', new_game_guess_path(@game) %>

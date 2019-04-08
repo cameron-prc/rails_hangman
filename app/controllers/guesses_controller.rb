@@ -1,6 +1,6 @@
 class GuessesController < ApplicationController
   before_action :set_guess, only: [:show]
-  before_action :set_game, only: [:create]
+  before_action :set_game
 
   # GET /guesses
   # GET /guesses.json

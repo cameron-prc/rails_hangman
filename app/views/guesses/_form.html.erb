@@ -1,4 +1,4 @@
-<%= form_with(model: guess, local: true) do |form| %>
+<%= form_with(model: [game, guess], local: true) do |form| %>
   <% if guess.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(guess.errors.count, "error") %> prohibited this guess from being saved:</h2>
@@ -10,11 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :game_id %>
-    <%= form.text_field :game_id %>
-  </div>
 
   <div class="field">
     <%= form.label :letter %>

@@ -14,8 +14,6 @@ class Game < ApplicationRecord
   end
 
   def active?
-    p lost?
-    p won?
     !(lost? or won?)
   end
 

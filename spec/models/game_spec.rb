@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  describe "validations" do
-    let(:game) { Game.new(target_word: target_word, lives: lives) }
-    let(:target_word) { "word" }
-    let(:lives) { 5 }
+  let(:game) { Game.new(target_word: target_word, lives: lives) }
+  let(:target_word) { "target" }
+  let(:lives) { 5 }
 
+  describe "validations" do
     context "when target word and lives are present and valid" do
       it "is valid" do
         expect(game).to be_valid
@@ -36,6 +36,93 @@ RSpec.describe Game, type: :model do
       it "is invalid" do
         expect(game).to be_invalid
         expect(game.errors[:lives].include?("must be greater than 0")).to eq(true)
+      end
+    end
+  end
+
+  describe "state" do
+    before(:each) do
+      game.save!
+    end
+
+    context "when each letter has been correctly guessed and incorrect guesses < lives" do
+      before(:each) do
+        letters = game.target_word.chars.uniq!
+
+        letters.each do |letter|
+          game.guesses.create!(letter: letter)
+        end
+      end
+
+      it "is not reporting active" do
+        expect(game.active?).to be(false)
+      end
+
+      it "is reporting won" do
+        expect(game.won?).to be(true)
+      end
+
+      it "is not reporting lost" do
+        expect(game.lost?).to be(false)
+      end
+    end
+
+    context "when each letter has been correctly guessed and incorrect guesses >= lives" do
+      before(:each) do
+        letters = game.target_word.chars.uniq!
+
+        letters |= %w[z x c v b]
+
+        # Validations are disabled here as they prevent the game from entering this state
+        letters.each do |letter|
+          game.guesses.new(letter: letter).save(validate: false)
+        end
+      end
+
+      it "is not reporting active" do
+        expect(game.active?).to be(false)
+      end
+
+      it "is not reporting won" do
+        expect(game.won?).to be(false)
+      end
+
+      it "is is reporting lost" do
+        expect(game.lost?).to be(true)
+      end
+    end
+
+    context "when each letter has not been correctly guessed and incorrect guesses < lives" do
+      it "is reporting active" do
+        expect(game.active?).to be(true)
+      end
+
+      it "is not reporting won" do
+        expect(game.won?).to be(false)
+      end
+
+      it "is not reporting lost" do
+        expect(game.lost?).to be(false)
+      end
+    end
+
+    context "when each letter has not been correctly guessed and incorrect guesses >= lives" do
+      before(:each) do
+        %w[z x c v b].each do |letter|
+          game.guesses.create!(letter: letter)
+        end
+      end
+
+      it "is reporting active" do
+        expect(game.active?).to be(false)
+      end
+
+      it "is not reporting won" do
+        expect(game.won?).to be(false)
+      end
+
+      it "is not reporting lost" do
+        expect(game.lost?).to be(true)
       end
     end
   end

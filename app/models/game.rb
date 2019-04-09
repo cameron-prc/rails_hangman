@@ -28,7 +28,7 @@ class Game < ApplicationRecord
   end
 
   def target_letters
-    target_word.split("")
+    target_word.chars
   end
 
   def guessed_letters

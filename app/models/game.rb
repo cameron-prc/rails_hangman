@@ -6,7 +6,7 @@ class Game < ApplicationRecord
   validates :lives, numericality: { only_integer: true, greater_than: 0 }
 
   def won?
-    !lost? && (target_word.split("") - guessed_letters).empty?
+    !lost? && (target_letters - guessed_letters).empty?
   end
 
   def lost?
@@ -18,14 +18,17 @@ class Game < ApplicationRecord
   end
 
   def incorrect_guesses
-    valid_letters = target_word.split("")
     incorrect_guesses = 0
 
     guesses.where.not(id: nil).find_each do |guess|
-      incorrect_guesses += 1 unless valid_letters.include? guess.letter
+      incorrect_guesses += 1 unless target_letters.include? guess.letter
     end
 
     incorrect_guesses
+  end
+
+  def target_letters
+    target_word.split("")
   end
 
   def guessed_letters

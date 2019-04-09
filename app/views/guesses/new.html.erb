@@ -1,0 +1,5 @@
+<h1>New Guess</h1>
+
+<%= render 'form', guess: @guess, game: @game %>
+
+<%= link_to 'Back', game_guesses_path(@game) %>

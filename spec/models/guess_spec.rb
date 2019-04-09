@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Guess, type: :model do
   describe "validations" do
     let(:game) { Game.create!(target_word: "word", lives: lives) }
-    let(:guess) { Guess.new({ letter: letter, game: game }) }
+    let(:guess) { Guess.new(letter: letter, game: game) }
     let(:letter) { "a" }
     let(:lives) { 5 }
 
@@ -45,12 +45,13 @@ RSpec.describe Guess, type: :model do
     end
 
     context "when the target game is complete" do
-      
-      it "cannot be added to it" do
-        ["w", "o", "r", "d"].each do |char|
+      before do
+        %w[w o r d].each do |char|
           game.guesses.create!(letter: char)
         end
-        
+      end
+
+      it "cannot be added to it" do
         expect(guess).to be_invalid
       end
     end

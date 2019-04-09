@@ -14,6 +14,8 @@ class Game < ApplicationRecord
   end
 
   def active?
+    p lost?
+    p won?
     !(lost? or won?)
   end
 
@@ -21,7 +23,7 @@ class Game < ApplicationRecord
     valid_letters = target_word.split("")
     incorrect_guesses = 0
 
-    guesses.each do |guess|
+    guesses.where.not(id: nil).each do |guess|
       incorrect_guesses += 1 unless valid_letters.include? guess.letter
     end
 
@@ -29,6 +31,6 @@ class Game < ApplicationRecord
   end
 
   def guessed_letters
-    guesses.map(&:letter)
+    guesses.where.not(id: nil).map(&:letter)
   end
 end

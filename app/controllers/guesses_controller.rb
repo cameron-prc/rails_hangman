@@ -21,7 +21,7 @@ class GuessesController < ApplicationController
     @guess = @game.guesses.build(guess_params)
 
     if @guess.save
-      redirect_to game_guess_path(@game, @guess), notice: 'Guess was successfully created.'
+      redirect_to game_path(@game), notice: 'Guess was successfully created.'
     else
       render :new
     end

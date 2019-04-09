@@ -1,3 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<p><%= generate_obfuscated_word(@game.target_word, @game.guessed_letters) %></p>
+
+<p>Lives remaining: <%= @game.lives - @game.incorrect_guesses %></p>
+
+<p>
+    Guessed letters:<br />
+    <%= @game.guessed_letters.join(" ") %>
+</p>
+
+<%= link_to 'Guess', new_game_guess_path(@game) if @game.active? %>
 <%= link_to 'Back', games_path %>

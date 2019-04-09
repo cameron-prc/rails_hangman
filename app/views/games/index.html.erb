@@ -12,7 +12,8 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
-        <td><%= link_to 'Show', game %></td>
+        <td>Game: <%= game.id %></td>
+        <td><%= link_to "#{ game.active? ? "Continue" : (game.lost? ? "Lost" : "Won") }", game %></td>
       </tr>
     <% end %>
   </tbody>

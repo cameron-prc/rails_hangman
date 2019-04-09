@@ -1,10 +1,9 @@
 class GuessesController < ApplicationController
-  before_action :set_guess, only: [:show]
   before_action :set_game
 
   # GET /guesses
   def index
-    @game.guesses.all
+    @guesses = @game.guesses.all
   end
 
   # GET /guesses/1
@@ -14,7 +13,7 @@ class GuessesController < ApplicationController
 
   # GET /guesses/new
   def new
-    @game.guesses.new
+    @guess = @game.guesses.new
   end
 
   # POST /guesses

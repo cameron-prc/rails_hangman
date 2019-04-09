@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  has_many :guesses
+  has_many :guesses, dependent: :destroy
 
   validates :target_word, presence: true
   validates :lives, presence: true

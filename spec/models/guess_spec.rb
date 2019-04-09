@@ -4,12 +4,7 @@ RSpec.describe Guess, type: :model do
   describe "validations" do
     let(:game) { Game.create!(target_word: "word", lives: 5) }
     let(:letter) { "a" }
-    let(:guess) do
-      guess = Guess.new(letter: letter)
-      guess.game = game
-
-      guess
-    end
+    let(:guess) { Guess.new({ letter: letter, game: game }) }
 
     context "when a valid game and letter is present and valid" do
       it "is valid" do

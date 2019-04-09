@@ -1,6 +1,6 @@
 class Guess < ApplicationRecord
-  belongs_to :game
+  belongs_to :game, required: true, dependent: :destroy
 
   validates :letter, presence: true
-  validates_length_of :letter, is: 1
+  validates :letter, length: { is: 1 }
 end

@@ -15,7 +15,7 @@ RSpec.describe Game, type: :model do
     context "when target word is blank" do
       let(:target_word) { "" }
 
-      it "Validates target word exists" do
+      it "validates target word exists" do
         expect(game).to be_invalid
         expect(game.errors[:target_word].size).to eq(1)
       end
@@ -24,7 +24,7 @@ RSpec.describe Game, type: :model do
     context "when lives are blank" do
       let(:lives) { nil }
 
-      it "Validates presence of lives" do
+      it "validates presence of lives" do
         expect(game).to be_invalid
         expect(game.errors[:lives].include?("can't be blank")).to eq(true)
       end

@@ -6,7 +6,7 @@ class Game < ApplicationRecord
   validates :lives, numericality: { only_integer: true, greater_than: 0 }
 
   def won?
-    (target_word.split("") - guessed_letters).empty?
+    !lost? && (target_word.split("") - guessed_letters).empty?
   end
 
   def lost?

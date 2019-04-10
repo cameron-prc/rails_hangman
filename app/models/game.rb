@@ -31,7 +31,7 @@ class Game < ApplicationRecord
     guesses.select(&:persisted?).map(&:letter)
   end
 
-  def lives_remaing
+  def lives_remaining
     lives - incorrect_guesses
   end
 end

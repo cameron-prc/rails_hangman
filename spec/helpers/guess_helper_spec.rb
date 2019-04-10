@@ -7,7 +7,7 @@ RSpec.describe GuessHelper, type: :helper do
   describe "generate_obfuscated_word" do
     context "with no guesses" do
       it "returns a string of padded underscores only" do
-        helper.generate_obfuscated_word(target_word, guessed_letters).should == " _  _  _  _ "
+        expect(helper.generate_obfuscated_word(target_word, guessed_letters)).to eq(" _  _  _  _ ")
       end
     end
 
@@ -15,7 +15,7 @@ RSpec.describe GuessHelper, type: :helper do
       let(:guessed_letters) { %w[a] }
 
       it "returns a string of padded underscores only" do
-        helper.generate_obfuscated_word(target_word, guessed_letters).should == " _  _  _  _ "
+        expect(helper.generate_obfuscated_word(target_word, guessed_letters)).to eq(" _  _  _  _ ")
       end
     end
 
@@ -23,7 +23,7 @@ RSpec.describe GuessHelper, type: :helper do
       let(:guessed_letters) { %w[w] }
 
       it "returns a padded string where correct letters are displayed and missing letters are underscores" do
-        helper.generate_obfuscated_word(target_word, guessed_letters).should == " w  _  _  _ "
+        expect(helper.generate_obfuscated_word(target_word, guessed_letters)).to eq(" w  _  _  _ ")
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe GuessHelper, type: :helper do
       let(:guessed_letters) { %w[w t] }
 
       it "returns a padded string where inorrect letters do not effect the output" do
-        helper.generate_obfuscated_word(target_word, guessed_letters).should == " w  _  _  _ "
+        expect(helper.generate_obfuscated_word(target_word, guessed_letters)).to eq(" w  _  _  _ ")
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe GuessHelper, type: :helper do
       let(:guessed_letters) { %w[t] }
 
       it "returns a padded string where correct letters are displayed and missing letters are underscores" do
-        helper.generate_obfuscated_word(target_word, guessed_letters).should == " t  _  _  t "
+        expect(helper.generate_obfuscated_word(target_word, guessed_letters)).to eq(" t  _  _  t ")
       end
     end
   end

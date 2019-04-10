@@ -3,7 +3,9 @@ class Guess < ApplicationRecord
 
   validates :letter, presence: true
   validates :letter, length: { is: 1 }
+  validates :letter, uniqueness: { scope: :game }
   validate :validates_game_is_active
+  validate :validates_duplicate_guesses
 
   private
 

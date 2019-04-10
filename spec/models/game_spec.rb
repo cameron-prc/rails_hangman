@@ -146,7 +146,7 @@ RSpec.describe Game, type: :model do
       end
 
       it "is achknowledged as a guess" do
-        game.guessed_letters.should == [letter]
+        expect(game.guessed_letters).to match_array([letter])
       end
     end
 
@@ -160,7 +160,7 @@ RSpec.describe Game, type: :model do
       end
 
       it "is achknowledged as a guess" do
-        game.guessed_letters.should == [letter]
+        expect(game.guessed_letters).to match_array([letter])
       end
     end
 

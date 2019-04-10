@@ -13,7 +13,7 @@
     <% @games.each do |game| %>
       <tr>
         <td>Game: <%= game.id %></td>
-        <td><%= link_to "#{ game.active? ? "Continue" : (game.lost? ? "Lost" : "Won") }", game %></td>
+        <td><%= link_to calculate_game_status_text(game), game %></td>
       </tr>
     <% end %>
   </tbody>

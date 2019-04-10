@@ -28,7 +28,7 @@ class Game < ApplicationRecord
   end
 
   def guessed_letters
-    guesses.where.not(id: nil).map(&:letter)
+    guesses.select(&:persisted?).map(&:letter)
   end
 
   def lives_remaing

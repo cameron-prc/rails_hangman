@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Guess, type: :model do
   describe "validations" do
-    let(:game) { Game.create!(target_word: "word", lives: 5) }
+    let(:game) { Game.create!(target_word: "word", lives: lives) }
+    let(:guess) { Guess.new(letter: letter, game: game) }
     let(:letter) { "a" }
-    let(:guess) { Guess.new({ letter: letter, game: game }) }
+    let(:lives) { 5 }
 
     context "when a valid game and letter is present and valid" do
       it "is valid" do
@@ -40,6 +41,18 @@ RSpec.describe Guess, type: :model do
         expect(guess).to be_invalid
 
         expect(guess.errors[:letter].include?("is the wrong length (should be 1 character)")).to eq(true)
+      end
+    end
+
+    context "when the target game is complete" do
+      before do
+        %w[w o r d].each do |char|
+          game.guesses.create!(letter: char)
+        end
+      end
+
+      it "cannot be added to it" do
+        expect(guess).to be_invalid
       end
     end
   end

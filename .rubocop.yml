@@ -98,9 +98,6 @@ Style/ClassMethods:
 Style/CollectionMethods:
   AutoCorrect: true
 
-Style/GuardClause:
-  Enabled: false
-
 Style/IfUnlessModifier:
   Enabled: false
 

@@ -40,7 +40,7 @@ RSpec.describe GuessesController, type: :controller do
 
       it "redirects to the created guess" do
         post :create, params: { guess: valid_attributes, game_id: game.id }, session: valid_session
-        expect(response).to redirect_to(game_guess_path(game, Guess.last))
+        expect(response).to redirect_to(game_path(game))
       end
     end
 

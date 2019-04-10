@@ -10,6 +10,6 @@ class Guess < ApplicationRecord
   def validates_game_is_active
     return unless game
 
-    errors.add(:game, "The game has already been completed") unless game.active?
+    errors.add(:game, "has already been completed") unless game.active?
   end
 end

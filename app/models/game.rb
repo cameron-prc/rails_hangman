@@ -18,13 +18,9 @@ class Game < ApplicationRecord
   end
 
   def incorrect_guesses
-    incorrect_guesses = 0
-
-    guesses.where.not(id: nil).find_each do |guess|
-      incorrect_guesses += 1 unless target_letters.include? guess.letter
+    guesses.where.not(id: nil).count do |guess|
+      !target_letters.include?(guess.letter)
     end
-
-    incorrect_guesses
   end
 
   def target_letters

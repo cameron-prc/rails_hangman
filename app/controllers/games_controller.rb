@@ -26,16 +26,6 @@ class GamesController < ApplicationController
     end
   end
 
-  def create_random
-    @game = Game.new(target_word: Game.generate_random_word, lives: Game::DEFAULT_LIVES)
-
-    if @game.save
-      redirect_to @game, notice: 'Game was successfully created.'
-    else
-      render :new
-    end
-  end
-
   private
 
   def game_params

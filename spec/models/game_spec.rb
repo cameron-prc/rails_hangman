@@ -126,4 +126,66 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe "guesses" do
+    let(:letter) { "z" }
+
+    before(:each) do
+      game.save!
+    end
+
+    context "when correct" do
+      let(:letter) { game.target_word.chars.first }
+
+      before(:each) do
+        game.guesses.create!(letter: letter)
+      end
+
+      it "does not get calculated as incorrect" do
+        expect(game.incorrect_guesses).to eq(0)
+      end
+
+      it "is achknowledged as a guess" do
+        game.guessed_letters.should == [letter]
+      end
+    end
+
+    context "when incorrect" do
+      before(:each) do
+        game.guesses.create!(letter: letter)
+      end
+
+      it "gets calculated as incorrect" do
+        expect(game.incorrect_guesses).to eq(1)
+      end
+
+      it "is achknowledged as a guess" do
+        game.guessed_letters.should == [letter]
+      end
+    end
+
+    context "when unsaved" do
+      let(:lives) { 1 }
+
+      it "does not count towards game state validation" do
+        game.guesses.build(letter: letter)
+
+        expect(game.lost?).to be(false)
+        expect(game.won?).to be(false)
+        expect(game.active?).to be(true)
+      end
+
+      it "does not count towards incorrect guesses" do
+        game.guesses.build(letter: letter)
+
+        expect(game.incorrect_guesses).to eq(0)
+      end
+
+      it "is not achnkowledged as a guess" do
+        game.guesses.build(letter: letter)
+
+        expect(game.guessed_letters.include?(letter)).to eq(false)
+      end
+    end
+  end
 end

@@ -30,4 +30,8 @@ class Game < ApplicationRecord
   def guessed_letters
     guesses.where.not(id: nil).map(&:letter)
   end
+
+  def lives_remaing
+    lives - incorrect_guesses
+  end
 end

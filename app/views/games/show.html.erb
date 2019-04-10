@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <% unless @game.active? %>
-    <p>Game <%= @game.lost? ? "lost" : "won" %></p>
+    <p>Game <%= calculate_game_status_text(@game) %></p>
 <% end %>
 <p><%= generate_obfuscated_word(@game.target_word, @game.guessed_letters) %></p>
 
-<p>Lives remaining: <%= @game.lives - @game.incorrect_guesses %></p>
+<p>Lives remaining: <%= @game.lives_remaining %></p>
 
 <p>
     Guessed letters:<br />

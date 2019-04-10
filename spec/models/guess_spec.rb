@@ -55,5 +55,15 @@ RSpec.describe Guess, type: :model do
         expect(guess).to be_invalid
       end
     end
+
+    context "when a guess exists with the same game and letter" do
+      before do
+        game.guesses.create!(letter: "a")
+      end
+
+      it "is invalid" do
+        expect(guess).to be_invalid
+      end
+    end
   end
 end

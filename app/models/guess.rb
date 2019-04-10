@@ -3,6 +3,7 @@ class Guess < ApplicationRecord
 
   validates :letter, presence: true
   validates :letter, length: { is: 1 }
+  validates :letter, uniqueness: { scope: :game }
   validate :validates_game_is_active
   validate :validates_duplicate_guesses
 
@@ -12,11 +13,5 @@ class Guess < ApplicationRecord
     return unless game
 
     errors.add(:game, "has already been completed") unless game.active?
-  end
-
-  def validates_duplicate_guesses
-    return unless game
-
-    errors.add(:letter, "has already been guessed") if game.guessed_letters.include?(letter)
   end
 end

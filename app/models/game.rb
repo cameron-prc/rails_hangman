@@ -14,7 +14,7 @@ class Game < ApplicationRecord
   end
 
   def active?
-    !(lost? or won?)
+    !(lost? || won?)
   end
 
   def incorrect_guesses

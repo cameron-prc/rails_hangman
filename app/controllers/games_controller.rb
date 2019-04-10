@@ -17,26 +17,22 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @game = Game.new(game_params)
+    @game = params[:random] ? Game.new_random_game : Game.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @game.save
+      redirect_to @game, notice: 'Game was successfully created.'
+    else
+      render :new
     end
   end
 
   def create_random
     @game = Game.new(target_word: Game.generate_random_word, lives: Game::DEFAULT_LIVES)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @game.save
+      redirect_to @game, notice: 'Game was successfully created.'
+    else
+      render :new
     end
   end
 

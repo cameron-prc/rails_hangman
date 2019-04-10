@@ -42,4 +42,8 @@ class Game < ApplicationRecord
   def self.generate_random_word
     LiterateRandomizer.word
   end
+
+  def self.new_random_game
+    Game.new(target_word: Game.generate_random_word, lives: Game::DEFAULT_LIVES)
+  end
 end

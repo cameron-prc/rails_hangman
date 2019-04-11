@@ -9,4 +9,5 @@ document.getElementById("lives_remaining").innerHTML = "<%= @game.lives_remainin
   document.getElementById("guess_form").remove();
   <% flash[:notice] = "Game #{calculate_game_status_text(@game)}" %>
   document.getElementById("notice").innerHTML = "<%= flash[:notice] %>";
+  <% flash.clear %>
 <% end %>

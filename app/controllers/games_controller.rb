@@ -8,6 +8,7 @@ class GamesController < ApplicationController
   # GET /games/1
   def show
     @game = Game.find(params[:id])
+    @guess = @game.guesses.new
   end
 
   # GET /games/new
@@ -26,6 +27,10 @@ class GamesController < ApplicationController
         format.html { render :new }
       end
     end
+  end
+
+  def obfuscated_target_word
+    @game = Game.find(params[:id])
   end
 
   private

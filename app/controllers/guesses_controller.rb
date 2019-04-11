@@ -20,10 +20,14 @@ class GuessesController < ApplicationController
   def create
     @guess = @game.guesses.build(guess_params)
 
-    if @guess.save
-      redirect_to game_path(@game), notice: 'Guess was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @guess.save
+        format.html { redirect_to game_path(@game), notice: 'Guess was successfully created.' }
+        format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @guess.errors.to_json, status: :unprocessable_entity }
+      end
     end
   end
 

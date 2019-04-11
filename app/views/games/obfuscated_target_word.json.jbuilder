@@ -1,0 +1,1 @@
+json.target_word generate_obfuscated_word(@game.target_word, @game.guessed_letters)

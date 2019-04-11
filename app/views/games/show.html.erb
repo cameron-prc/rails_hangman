@@ -3,14 +3,17 @@
 <% unless @game.active? %>
     <p>Game <%= calculate_game_status_text(@game) %></p>
 <% end %>
-<p><%= generate_obfuscated_word(@game.target_word, @game.guessed_letters) %></p>
+<div data-controller="guess">
+  <p data-target="guess.obfuscatedTargetWord"><%= generate_obfuscated_word(@game.target_word, @game.guessed_letters) %></p>
 
-<p>Lives remaining: <%= @game.lives_remaining %></p>
+<p>Lives remaining: <span data-target="guess.livesRemaining"><%= @game.lives_remaining %></span></p>
 
 <p>
     Guessed letters:<br />
-    <%= @game.guessed_letters.join(" ") %>
+    <span data-target="guess.guessedLetters"><%= @game.guessed_letters.join(" ") %></span>
 </p>
+<%= render 'guess_form', guess: @guess, game: @game %>
 
-<%= link_to 'Guess', new_game_guess_path(@game) if @game.active? %>
+<%= link_to 'Guess', new_game_guess_path(@game), remote: false, data: { action: "guess#post_guess" } if @game.active? %>
 <%= link_to 'Back', games_path %>
+</div>

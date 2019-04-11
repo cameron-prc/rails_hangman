@@ -1,0 +1,13 @@
+<%= form_with(model: [game, guess], local: true) do |form| %>
+  <%= render 'shared/form_errors', object: guess %>
+
+
+  <div class="field">
+    <%= form.label :letter %>
+    <%= form.text_field :letter, data: { target: "guess.guessedLetter" } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guess", data: { action: "guess#handle_guess" } %>
+  </div>
+<% end %>

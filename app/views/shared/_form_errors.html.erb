@@ -1,11 +1,9 @@
-<% if object.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(object.errors.count, "error") %> prohibited this <%= object.class.name.downcase %> from being saved:</h2>
+<div id="error_explanation" data-target="<%= object.class.name.downcase %>.errorExplanation" <%= "hidden" unless object.errors.any? %>>
+  <h2><span data-target="<%= object.class.name.downcase %>.errorCount"><%= pluralize(object.errors.count, "error") %></span> prohibited this <%= object.class.name.downcase %> from being saved:</h2>
 
-      <ul>
-      <% object.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <ul data-target="<%= object.class.name.downcase %>.errorContainer">
+  <% object.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
   <% end %>
+  </ul>
+</div>

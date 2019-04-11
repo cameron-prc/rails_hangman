@@ -1,0 +1,12 @@
+document.getElementById("guess_form").innerHTML = "<%= escape_javascript(render partial: 'form', locals: { guess: guess, game: @game }) %>";
+document.getElementById("obfuscated_word").innerHTML = "<%= generate_obfuscated_word(@game.target_word, @game.guessed_letters) %>";
+document.getElementById("guessed_letters").innerHTML = "<%= @game.guessed_letters.join(" ") %>";
+document.getElementById("lives_remaining").innerHTML = "<%= @game.lives_remaining %>";
+
+<% if @game.active? %>
+  document.getElementById("notice").innerHTML = "";
+<% else %>
+  document.getElementById("guess_form").remove();
+  <% flash[:notice] = "Game #{calculate_game_status_text(@game)}" %>
+  document.getElementById("notice").innerHTML = "<%= flash[:notice] %>";
+<% end %>

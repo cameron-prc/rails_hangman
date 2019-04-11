@@ -188,4 +188,10 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe "random generation" do
+    it "creates a valid game" do
+      expect(Game.new_random_game).to be_valid
+    end
+  end
 end

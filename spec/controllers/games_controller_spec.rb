@@ -49,5 +49,18 @@ RSpec.describe GamesController, type: :controller do
         expect(response).to be_successful
       end
     end
+
+    context "with random flag" do
+      it "creates a new Game" do
+        expect {
+          post :create, params: { random: 1 }, session: valid_session
+        }.to change(Game, :count).by(1)
+      end
+
+      it "redirects to the created game" do
+        post :create, params: { random: 1 }, session: valid_session
+        expect(response).to redirect_to(Game.last)
+      end
+    end
   end
 end

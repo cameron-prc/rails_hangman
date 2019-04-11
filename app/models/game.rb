@@ -1,9 +1,13 @@
+require 'literate_randomizer'
+
 class Game < ApplicationRecord
   has_many :guesses, dependent: :destroy
 
   validates :target_word, presence: true
   validates :lives, presence: true
   validates :lives, numericality: { only_integer: true, greater_than: 0 }
+
+  DEFAULT_LIVES = 5
 
   def won?
     !lost? && (target_letters - guessed_letters).empty?
@@ -33,5 +37,13 @@ class Game < ApplicationRecord
 
   def lives_remaining
     lives - incorrect_guesses
+  end
+
+  def self.generate_random_word
+    LiterateRandomizer.word
+  end
+
+  def self.new_random_game
+    Game.new(target_word: Game.generate_random_word, lives: Game::DEFAULT_LIVES)
   end
 end

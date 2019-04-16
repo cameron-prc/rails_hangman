@@ -20,10 +20,14 @@ class GuessesController < ApplicationController
   def create
     @guess = @game.guesses.build(guess_params)
 
-    if @guess.save
-      redirect_to game_path(@game), notice: 'Guess was successfully created.'
-    else
-      render :new
+    respond_to do |format|
+      if @guess.save
+        format.html { redirect_to game_path(@game), notice: 'Guess was successfully created.' }
+        format.js { render :create, locals: { guess: @game.guesses.new } }
+      else
+        format.html { render :new }
+        format.js
+      end
     end
   end
 

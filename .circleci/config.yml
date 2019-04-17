@@ -10,7 +10,7 @@ commands:
       - run:
           name: Announce failure
           command: |
-            scripts/circleci-announce-broken-branch
+            scripts/master
 
 jobs:
   build:
@@ -76,7 +76,12 @@ jobs:
           path: /tmp/test-results
 
       # Alert the team to any failures
-      - announce_failure
+      - run:
+          name: Announce failure
+          command: |
+            [[ $CIRCLE_BRANCH = alert-on-failed-builds ]] || exit 0
+            bash scripts/circleci-announce-broken-branch
+          when: on_fail
 
 workflows:
   version: 2

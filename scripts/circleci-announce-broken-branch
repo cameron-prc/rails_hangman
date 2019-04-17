@@ -1,43 +1,23 @@
 #! /usr/bin/env bash
-message="*WARNING:* $CIRCLE_PROJECT_REPONAME $CIRCLE_BRANCH branch has failed on job $CIRCLE_JOB."
 
 #####
 ## Announce in Slack channel
 #####
-# 'color' can be any hex code or the key words 'good', 'warning', or 'danger'
-color="danger"
-
-slack_payload=$(
+payload=$(
 cat <<EOM
 {
-    "text": "$pretext",
-    "blocks": [
-	{
-		"type": "section",
-		"text": {
-			"type": "plain_text",
-			"text": "$message",
-			"emoji": true
-		}
-	},
-	{
-		"type": "context",
-		"elements": [
-			{
-				"type": "mrkdwn",
-				"text": "Last updated: Jan 1, 2019"
-			}
-		]
-	}
-]
+    "attachments": [
+        {
+            "fallback": "WARNING: $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH has failed to build!",
+            "color": "danger",
+            "title": "Build Failure:",
+			"text": "*WARNING:* $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH has failed to build!",
+			"ts": "$( date +%s )",
+			"mrkdwn_in": ["text"]
+        }
+    ]
 }
 EOM
 )
 
-echo
-echo "Slack Payload:"
-echo "$slack_payload"
-echo
-echo "Slack url:"
-echo "$SLACK_WEBHOOK_URL"
-echo
+curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_WEBHOOK_URL

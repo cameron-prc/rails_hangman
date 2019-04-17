@@ -3,15 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
-commands:
-  announce_failure:
-    parameters:
-    steps:
-      - run:
-          name: Announce failure
-          command: |
-            scripts/master
-
 jobs:
   build:
     docker:

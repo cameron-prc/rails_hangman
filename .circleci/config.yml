@@ -3,6 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
+commands:
+  announce_failure:
+    parameters:
+    steps:
+      - run:
+          name: Announce failure
+          command: |
+            scripts/circleci-announce-broken-branch
+
 jobs:
   build:
     docker:
@@ -65,6 +74,9 @@ jobs:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
+
+      # Alert the team to any failures
+      - announce_failure
 
 workflows:
   version: 2

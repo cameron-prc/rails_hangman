@@ -79,6 +79,7 @@ jobs:
       - run:
           name: Announce failure
           command: |
+            [[ $CIRCLE_BRANCH = master ]] || exit 0
             bash scripts/circleci-announce-broken-branch
           when: on_fail
 

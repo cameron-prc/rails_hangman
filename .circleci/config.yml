@@ -76,7 +76,10 @@ jobs:
           path: /tmp/test-results
 
       # Alert the team to any failures
-      - announce_failure
+      - run:
+          name: Announce failure
+          command: |
+            scripts/circleci-announce-broken-branch
 
 workflows:
   version: 2

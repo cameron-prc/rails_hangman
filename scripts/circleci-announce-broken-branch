@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-message="*WARNING:* $CIRCLE_PROJECT_REPONAME $CIRCLE_BRANCH branch has failed on job $CIRCLE_JOB."
+message="*WARNING:* $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH $CIRCLE_JOB job has failed."
 
 #####
 ## Announce in Slack channel
@@ -10,26 +10,7 @@ color="danger"
 slack_payload=$(
 cat <<EOM
 {
-    "text": "$pretext",
-    "blocks": [
-	{
-		"type": "section",
-		"text": {
-			"type": "plain_text",
-			"text": "$message",
-			"emoji": true
-		}
-	},
-	{
-		"type": "context",
-		"elements": [
-			{
-				"type": "mrkdwn",
-				"text": "Last updated: Jan 1, 2019"
-			}
-		]
-	}
-]
+    "text": "*WARNING:* $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH has failed to build"
 }
 EOM
 )

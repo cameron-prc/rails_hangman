@@ -10,7 +10,15 @@ color="danger"
 slack_payload=$(
 cat <<EOM
 {
-    "text": "*WARNING:* $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH has failed to build!"
+    "attachments": [
+        {
+            "fallback": "Required plain-text summary of the attachment.",
+            "color": "danger",
+            "pretext": "WARNING: $CIRCLE_PROJECT_REPONAME/$CIRCLE_BRANCH has failed to build!",
+            "text": "$CIRCLE_PULL_REQUEST",
+            "ts": 123456789
+        }
+    ]
 }
 EOM
 )

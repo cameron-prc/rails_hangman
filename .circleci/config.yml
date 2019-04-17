@@ -80,6 +80,7 @@ jobs:
           name: Announce failure
           command: |
             bash scripts/circleci-announce-broken-branch
+          when: on_fail
 
 workflows:
   version: 2

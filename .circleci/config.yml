@@ -78,8 +78,8 @@ jobs:
       # Alert the team to any failures
       - run:
           name: Announce failure
-          command: |
-            scripts/circleci-announce-broken-branch
+          commands:
+            - bash scripts/circleci-announce-broken-branch
 
 workflows:
   version: 2
